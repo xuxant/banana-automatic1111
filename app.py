@@ -114,6 +114,13 @@ def handler(context: dict, request: Request) -> Response:
         status=200
     )
 
+@app.handler()
+def handler(context: dict, request: Request) -> Response:
+    return Response(
+        json={"output": "success"},
+        status=200
+    )
+
 
 if __name__ == "__main__":
     app.serve()
