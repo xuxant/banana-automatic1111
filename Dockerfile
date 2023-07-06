@@ -4,7 +4,7 @@ ARG MODEL_URL='https://huggingface.co/stabilityai/stable-diffusion-2-1/blob/main
 
 ARG HF_TOKEN=''
 
-RUN apt update && apt-get -y install git wget \
+RUN apt update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install git wget \
     python3.10 python3-pip \
     build-essential libgl-dev libglib2.0-0 vim
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
