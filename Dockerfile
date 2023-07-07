@@ -29,7 +29,7 @@ ADD prepare.py .
 
 RUN python prepare.py --skip-torch-cuda-test --xformers --reinstall-torch --reinstall-xformers
 
-RUN pip list
+RUN pip install pipdeptree && pipdeptree
 
 ADD download.py download.py
 RUN python download.py --use-cpu=all
