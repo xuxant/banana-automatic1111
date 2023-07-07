@@ -1,7 +1,7 @@
 from potassium import Potassium, Request, Response
-from webui.modules import interrogate
-from webui.modules import safe
-from webui.modules.api import api
+from modules import interrogate
+from modules import safe
+from modules.api import api
 import webui
 import json
 import torch
