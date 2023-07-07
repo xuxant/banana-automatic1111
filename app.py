@@ -80,15 +80,15 @@ def initialize():
 @app.init
 def init():
     
-    import webui.modules.sd_models
+    import modules.sd_models
 
-    list_models = webui.modules.sd_models.list_models
-    webui.sd_models.list_models = noop
+    list_models = modules.sd_models.list_models
+    modules.sd_models.list_models = noop
 
-    model = webui.modules.sd_models.load_model()
+    model = modules.sd_models.load_model()
     load_model = webui.modules.sd_models.load_model
 
-    webui.modules.sd_models.list_models = noop
+    modules.sd_models.list_models = noop
     
     register_model(model=model)
 
