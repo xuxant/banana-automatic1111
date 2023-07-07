@@ -77,7 +77,7 @@ def initialize():
 
     register_model()
 
-@app.init()
+@app.init
 def init():
     
     import webui.modules.sd_models
