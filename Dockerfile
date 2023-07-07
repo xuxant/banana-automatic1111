@@ -12,7 +12,7 @@ RUN ln -s /usr/bin/python3.10 /usr/bin/python
 WORKDIR /app
 
 
-RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git webui
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git webui && cd webui && git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101
 
 WORKDIR /app/webui
 
