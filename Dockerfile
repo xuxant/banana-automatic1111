@@ -9,6 +9,10 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install g
     build-essential libgl-dev libglib2.0-0 vim
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
 
+RUN ADD requirements.txt requirements.
+
+RUN pip install -r requirements.txt
+
 WORKDIR /app
 
 
