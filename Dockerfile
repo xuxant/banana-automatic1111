@@ -19,7 +19,7 @@ WORKDIR /app/webui
 ENV MODEL_URL=${MODEL_URL}
 ENV HF_TOKEN=${HF_TOKEN}
 
-RUN pip install tqdm requests
+RUN pip install tqdm requests markupsafe==2.0.1 
 
 ADD download_checkpoint.py .
 
