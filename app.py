@@ -1,5 +1,4 @@
 from potassium import Potassium, Request, Response
-from modules import interrogate
 from modules import safe
 from modules.api import api
 import webui
