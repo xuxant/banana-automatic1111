@@ -1,6 +1,6 @@
 from potassium import Potassium, Request, Response
 from modules import safe
-from modules.api import api
+from modules.api.api import Api
 import webui
 import json
 import torch
