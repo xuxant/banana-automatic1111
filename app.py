@@ -106,7 +106,7 @@ def handler(context: dict, request: Request) -> Response:
     
     params = model_input["params"]
 
-    text_to_image = api.Api(app=app)
+    text_to_image = Api(app=app)
     response = text_to_image.text2imgapi(params)
 
     return Response(
