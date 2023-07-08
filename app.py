@@ -104,7 +104,7 @@ def handler(context: dict, request: Request) -> Response:
     body = request.json.get("body")
     # model_input = json.loads(body)
     
-    params = model_input["params"]
+    params = body["params"]
 
     text_to_image = Api(app=app)
     response = text_to_image.text2imgapi(params)
