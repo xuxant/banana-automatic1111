@@ -1,4 +1,5 @@
 from potassium import Potassium, Request, Response
+import threading
 from modules import safe
 from modules.api.api import Api
 import webui
@@ -6,6 +7,8 @@ import json
 import torch
 
 app = Potassium("automatic1111")
+
+queue_lock = threading.Lock()
 
 torch.load = safe.unsafe_torch_load
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -106,7 +109,7 @@ def handler(context: dict, request: Request) -> Response:
     
     params = body["params"]
 
-    text_to_image = Api(app=app)
+    text_to_image = Api(app, queue_lock)
     response = text_to_image.text2imgapi(params)
     print(response)
 
