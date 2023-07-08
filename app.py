@@ -81,12 +81,13 @@ def initialize():
 def init():
     
     import modules.sd_models
-
+    
+    modules.sd_models.list_models()
     list_models = modules.sd_models.list_models
     modules.sd_models.list_models = noop
 
     model = modules.sd_models.load_model()
-    load_model = webui.modules.sd_models.load_model
+    load_model = modules.sd_models.load_model
 
     modules.sd_models.list_models = noop
     
