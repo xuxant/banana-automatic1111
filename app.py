@@ -5,8 +5,10 @@ from modules.api.api import Api
 import webui
 import json
 import torch
+from fastapi import FastAPI
 
 app = Potassium("automatic1111")
+app_fastapi = FastAPI()
 
 queue_lock = threading.Lock()
 
@@ -109,7 +111,7 @@ def handler(context: dict, request: Request) -> Response:
     
     params = body["params"]
 
-    text_to_image = Api(app, queue_lock)
+    text_to_image = Api(app_fastapi, queue_lock)
     response = text_to_image.text2imgapi(params)
     print(response)
 

@@ -1,2 +1,3 @@
 Potassium
 requests
+fastapi
