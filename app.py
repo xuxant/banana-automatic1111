@@ -81,7 +81,7 @@ def init():
     
     register_model(model=model)
     webui.initialize()
-    modules.script_callbacks.app_started_callback(None, app)
+    modules.script_callbacks.app_started_callback(None, app_fastapi)
 
     context = {
         "model": model
