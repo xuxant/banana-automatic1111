@@ -2,7 +2,7 @@ from potassium import Potassium, Request, Response
 import threading
 from modules import safe
 from modules.api.api import Api
-import webui
+import webui as webui
 import json
 import torch
 from fastapi import FastAPI
@@ -65,23 +65,6 @@ def load_model_by_url(url, list_models=None, load_models=None):
     webui.modules.sd_models.list_models = noop
     webui.modules.sd_models.load_model = noop
 
-def initialize():
-    global model, list_models, load_model
-    import webui.modules.sd_models
-
-    webui.modules.sd_models.list_models()
-
-    list_models = webui.modules.sd_models.list_models
-    webui.modules.sd_models.list_models = noop
-
-    model = webui.modules.sd_models.load_model()
-
-    load_model = webui.modules.sd_models.load_model
-
-    webui.modules.sd_models.list_models = noop
-
-    register_model()
-
 @app.init
 def init():
     
@@ -97,6 +80,8 @@ def init():
     modules.sd_models.list_models = noop
     
     register_model(model=model)
+    webui.initialize()
+    modules.script_callbacks.app_started_callback(None, app)
 
     context = {
         "model": model
