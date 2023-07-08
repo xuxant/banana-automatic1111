@@ -102,12 +102,13 @@ def init():
 @app.handler(route="/text2img")
 def handler(context: dict, request: Request) -> Response:
     body = request.json.get("body")
-    model_input = json.loads(body)
+    # model_input = json.loads(body)
     
     params = model_input["params"]
 
     text_to_image = Api(app=app)
     response = text_to_image.text2imgapi(params)
+    print(response)
 
     return Response(
         json={"output": response},
