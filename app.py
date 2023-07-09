@@ -82,7 +82,7 @@ def init():
 
     modules.sd_models.list_models = noop
 
-    webui.initialize()
+    # webui.initialize()
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     register_model(model=model)
 
@@ -100,7 +100,7 @@ def handler(context: dict, request: Request) -> Response:
     params = body["params"]
     model_parameter = reqmodels.StableDiffusionTxt2ImgProcessingAPI(**params)
 
-    webui.initialize()
+    # webui.initialize()
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     text_to_image = Api(app_fastapi, queue_lock)
     response = text_to_image.text2imgapi(model_parameter)
