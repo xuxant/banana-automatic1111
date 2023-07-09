@@ -2,10 +2,9 @@ from potassium import Potassium, Request, Response
 import threading
 from modules import safe
 from modules.api.api import Api
-import webui as webui
-import modules.api.models as reqmodels
 import modules
-import json
+import modules.api.models as reqmodels
+import webui
 import torch
 from fastapi import FastAPI
 
@@ -20,26 +19,21 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 list_models = None
 load_model = None
 
-
 def noop(*args, **kwargs):
     pass
-
 
 def unload_model():
     from modules import shared, sd_hijack, devices
     import gc
-
     if shared.sd_model:
         sd_hijack.model = None
         gc.collect()
         devices.torch_gc()
 
-
 def register_model(model=None):
     # global model
     try:
         from modules import shared, sd_hijack
-
         if shared.sd_model is not model:
             unload_model()
             shared.sd_model = model
@@ -58,7 +52,6 @@ def load_model_by_url(url, list_models=None, load_models=None):
     md5_hash = hash_object.hexdigest()
 
     from download_checkpoint import download
-
     download(url, md5_hash)
 
     webui.modules.sd_models.list_models = list_models
@@ -77,6 +70,7 @@ def load_model_by_url(url, list_models=None, load_models=None):
 
 @app.init
 def init():
+
     import modules.sd_models
 
     modules.sd_models.list_models()
@@ -92,24 +86,29 @@ def init():
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     register_model(model=model)
 
-    context = {"model": model}
+    context = {
+        "model": model
+    }
 
     return context
-
 
 @app.handler(route="/text2img")
 def handler(context: dict, request: Request) -> Response:
     body = request.json.get("body")
+    # model_input = json.loads(body)
 
     params = body["params"]
     model_parameter = reqmodels.StableDiffusionTxt2ImgProcessingAPI(**params)
 
-    # webui.initialize()
-    # modules.script_callbacks.app_started_callback(None, app_fastapi)
+    webui.initialize()
+    modules.script_callbacks.app_started_callback(None, app_fastapi)
     text_to_image = Api(app_fastapi, queue_lock)
-    response = text_to_image.text2imgapi(params)
+    response = text_to_image.text2imgapi(model_parameter)
 
-    return Response(json={"output": response.images[0]}, status=200)
+    return Response(
+        json={"output": response.images[0]},
+        status=200
+    )
 
 @app.handler()
 def default(context: dict, request: Request) -> Response:
