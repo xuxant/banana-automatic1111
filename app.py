@@ -88,9 +88,9 @@ def init():
 
     modules.sd_models.list_models = noop
 
-    register_model(model=model)
     webui.initialize()
     modules.script_callbacks.app_started_callback(None, app_fastapi)
+    register_model(model=model)
 
     context = {"model": model}
 
