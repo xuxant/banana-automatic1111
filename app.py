@@ -80,8 +80,8 @@ def init():
     modules.sd_models.list_models = noop
     
     register_model(model=model)
-    webui.initialize()
-    modules.script_callbacks.app_started_callback(None, app_fastapi)
+    # webui.initialize()
+    # modules.script_callbacks.app_started_callback(None, app_fastapi)
 
     context = {
         "model": model
@@ -96,6 +96,8 @@ def handler(context: dict, request: Request) -> Response:
     
     params = body["params"]
 
+    webui.initialize()
+    modules.script_callbacks.app_started_callback(None, app_fastapi)
     text_to_image = Api(app_fastapi, queue_lock)
     response = text_to_image.text2imgapi(params)
     print(response)
