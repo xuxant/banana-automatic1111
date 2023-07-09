@@ -92,7 +92,7 @@ def init():
 
     return context
 
-@app.handler(route="/sdapi/v1/txt2img")
+@app.handler(route="/txt2img")
 def handler(context: dict, request: Request) -> Response:
     body = request.json.get("body")
     # model_input = json.loads(body)
