@@ -1,6 +1,6 @@
 FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
-ARG MODEL_URL='https://huggingface.co/stabilityai/stable-diffusion-2-1/blob/main/v2-1_768-ema-pruned.ckpt'
+ARG MODEL_URL='https://huggingface.co/runwayml/stable-diffusion-v1-5/blob/main/v1-5-pruned-emaonly.ckpt'
 
 ARG HF_TOKEN=''
 
