@@ -9,10 +9,6 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install g
     build-essential libgl-dev libglib2.0-0 vim
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
 
-ADD requirements.txt requirements.txt
-
-RUN pip install -r requirements.txt
-
 WORKDIR /app
 
 
@@ -33,10 +29,12 @@ ADD prepare.py .
 
 RUN python prepare.py --skip-torch-cuda-test --xformers --reinstall-torch --reinstall-xformers
 
-RUN pip install MarkupSafe==2.0.0 torchmetrics==0.11.4 triton
+ADD requirements.txt requirements_banana.txt
 
-ADD download.py download.py
-RUN python download.py --use-cpu=all
+RUN pip install -r requirements_banana.txt
+
+# ADD download.py download.py
+# RUN python download.py --use-cpu=all
 
 ADD app.py app.py
 

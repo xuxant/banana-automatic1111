@@ -3,6 +3,8 @@ import requests
 import sys
 import time
 from tqdm import tqdm
+import modules.interrogate
+from webui import initialize
 
 MODEL_URL = os.environ.get('MODEL_URL')
 HF_TOKEN = os.environ.get("HF_TOKEN", "")
@@ -66,4 +68,8 @@ def download(url, id="model"):
         download_other_file(url, id)
 
 if __name__ == '__main__':
+    initialize()
+    interrogator = modules.interrogate.InterrogateModels("interrogate")
+    interrogator.load()
+    interrogator.categories()
     download(MODEL_URL)

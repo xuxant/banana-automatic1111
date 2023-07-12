@@ -31,7 +31,6 @@ def unload_model():
         devices.torch_gc()
 
 def register_model(model=None):
-    # global model
     try:
         from modules import shared, sd_hijack
         if shared.sd_model is not model:
@@ -44,7 +43,6 @@ def register_model(model=None):
 
 
 def load_model_by_url(url, list_models=None, load_models=None):
-    # global list_models, load_model
     import webui.modules.sd_models
     import hashlib
 
@@ -86,18 +84,10 @@ def init():
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     register_model(model=model)
 
-    context = {
-        "model": model
-    }
-
-    return context
-
 @app.handler(route="/txt2img")
 def handler(context: dict, request: Request) -> Response:
-    body = request.json.get("body")
-    # model_input = json.loads(body)
+    params = request.json.get("params")
 
-    params = body["params"]
     model_parameter = reqmodels.StableDiffusionTxt2ImgProcessingAPI(**params)
 
     # webui.initialize()
