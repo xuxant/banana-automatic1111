@@ -34,6 +34,7 @@ RUN python download_checkpoint.py
 
 RUN pip install MarkupSafe==2.0.0 torchmetrics==0.11.4 triton
 
+
 ADD download.py download.py
 
 RUN python download.py --use-cpu=all
