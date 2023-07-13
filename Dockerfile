@@ -15,8 +15,6 @@ RUN pip install -r requirements.txt
 
 WORKDIR /app
 
-
-
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git webui && cd webui && git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101
 
 WORKDIR /app/webui
@@ -37,6 +35,7 @@ RUN python download_checkpoint.py
 RUN pip install MarkupSafe==2.0.0 torchmetrics==0.11.4 triton
 
 ADD download.py download.py
+
 RUN python download.py --use-cpu=all
 
 ADD app.py app.py
