@@ -100,6 +100,20 @@ def handler(context: dict, request: Request) -> Response:
         status=200
     )
 
+@app.handler(route="/img2img")
+def imghandler(context: dict, request: Request) -> Response:
+    params = request.json.get("params")
+    model_parameter = reqmodels.StableDiffusionImg2ImgProcessingAPI(**params)
+    image_to_image = Api(app=app)
+    response = image_to_image.img2imgapi
+    
+    return Response(
+        json={
+            "output": response.images[0]},
+            status=200
+    )
+
+
 @app.handler()
 def default(context: dict, request: Request) -> Response:
     return Response(json={"output": "success"}, status=200)
