@@ -106,7 +106,7 @@ def imghandler(context: dict, request: Request) -> Response:
     model_parameter = reqmodels.StableDiffusionImg2ImgProcessingAPI(**params)
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     image_to_image = Api(app_fastapi, queue_lock)
-    response = image_to_image.img2imgapi
+    response = image_to_image.img2imgapi(model_parameter)
     
     return Response(
         json={
