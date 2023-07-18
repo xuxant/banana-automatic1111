@@ -110,7 +110,7 @@ def imghandler(context: dict, request: Request) -> Response:
     
     return Response(
         json={
-            "output": response.images[0]},
+            "output": response},
             status=200
     )
 
