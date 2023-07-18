@@ -84,7 +84,7 @@ def init():
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     register_model(model=model)
 
-@app.handler(route="/sdapi/v1/txt2img")
+@app.handler(route="/txt2img")
 def handler(context: dict, request: Request) -> Response:
     params = request.json.get("params")
 
@@ -105,7 +105,7 @@ def handler(context: dict, request: Request) -> Response:
         status=200
     )
 
-@app.handler(route="/sdapi/v1/img2img")
+@app.handler(route="/img2img")
 def imghandler(context: dict, request: Request) -> Response:
     params = request.json.get("params")
 
