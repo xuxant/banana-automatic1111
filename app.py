@@ -84,9 +84,14 @@ def init():
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     register_model(model=model)
 
-@app.handler(route="/txt2img")
+@app.handler(route="/sdapi/v1/txt2img")
 def handler(context: dict, request: Request) -> Response:
     params = request.json.get("params")
+
+    if 'width' not in params:
+        params['width'] = 768
+    if 'height' not in params:
+        params['height'] = 768
 
     model_parameter = reqmodels.StableDiffusionTxt2ImgProcessingAPI(**params)
 
@@ -100,9 +105,15 @@ def handler(context: dict, request: Request) -> Response:
         status=200
     )
 
-@app.handler(route="/img2img")
+@app.handler(route="/sdapi/v1/img2img")
 def imghandler(context: dict, request: Request) -> Response:
     params = request.json.get("params")
+
+    if 'width' not in params:
+        params['width'] = 768
+    if 'height' not in params:
+        params['height'] = 768
+
     model_parameter = reqmodels.StableDiffusionImg2ImgProcessingAPI(**params)
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     image_to_image = Api(app_fastapi, queue_lock)
@@ -111,7 +122,7 @@ def imghandler(context: dict, request: Request) -> Response:
     
     return Response(
         json={
-            "output": imageb64},
+            "output": imageb64[0]},
             status=200
     )
 
