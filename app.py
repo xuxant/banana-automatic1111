@@ -107,10 +107,11 @@ def imghandler(context: dict, request: Request) -> Response:
     modules.script_callbacks.app_started_callback(None, app_fastapi)
     image_to_image = Api(app_fastapi, queue_lock)
     response = image_to_image.img2imgapi(model_parameter)
+    imageb64 = response.images
     
     return Response(
         json={
-            "output": response},
+            "output": imageb64},
             status=200
     )
 
